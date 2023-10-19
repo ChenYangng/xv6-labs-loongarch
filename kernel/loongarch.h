@@ -241,6 +241,15 @@ r_csr_badi()
 }
 
 /* IOCSR */
+static inline uint8 iocsr_readb(uint32 reg)
+{
+	return __iocsrrd_b(reg);
+}
+
+static inline uint16 iocsr_readh(uint32 reg)
+{
+	return __iocsrrd_h(reg);
+}
 static inline uint32 iocsr_readl(uint32 reg)
 {
 	return __iocsrrd_w(reg);
@@ -249,6 +258,16 @@ static inline uint32 iocsr_readl(uint32 reg)
 static inline uint64 iocsr_readq(uint32 reg)
 {
 	return __iocsrrd_d(reg);
+}
+
+static inline void iocsr_writeb(uint8 val, uint32 reg)
+{
+	__iocsrwr_b(val, reg);
+}
+
+static inline void iocsr_writeh(uint16 val, uint32 reg)
+{
+	__iocsrwr_h(val, reg);
 }
 
 static inline void iocsr_writel(uint32 val, uint32 reg)

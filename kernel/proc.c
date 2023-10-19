@@ -122,6 +122,7 @@ found:
 
   // Allocate a trapframe page.
   if((p->trapframe = (struct trapframe *)kalloc()) == 0){
+    printf("failed to allocate a trapframe page\n");
     freeproc(p);
     release(&p->lock);
     return 0;

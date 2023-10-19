@@ -24,12 +24,15 @@ trapinit(void)
 {
   initlock(&tickslock, "time");
   uint32 ecfg = ( 0U << CSR_ECFG_VS_SHIFT ) | HWI_VEC | TI_VEC;
+  // uint32 ecfg = ( 0U << CSR_ECFG_VS_SHIFT ) | HWI_VEC;
   uint64 tcfg = 0x1000000UL | CSR_TCFG_EN | CSR_TCFG_PER;
   w_csr_ecfg(ecfg);
   w_csr_tcfg(tcfg);
+  // printf("tcfg writed\n");
   w_csr_eentry((uint64)handle_excep);
   w_csr_tlbrentry((uint64)handle_tlbr);
-  w_csr_merrentry((uint64)handle_merr);
+  // w_csr_merrentry((uint64)handle_merr);
+  // printf("merrentry writed\n");
   intr_on();
 }
 
@@ -110,8 +113,8 @@ usertrapret(void)
   uint32 x = r_csr_prmd();
   x |= PRMD_PPLV; // set PPLV to 3 for user mode
   x |= PRMD_PIE; // enable interrupts in user mode
-  w_csr_prmd(x);
-
+  w_csr_prmd(x) ;
+ 
   // set S Exception Program Counter to the saved user pc.
   w_csr_era(p->trapframe->era);
 
@@ -184,14 +187,14 @@ devintr()
     // this is a hardware interrupt, via IOCR.
 
     // irq indicates which device interrupted.
-    uint64 irq = extioi_claim();
-    if(irq & (1UL << UART0_IRQ)){
+    uint32 irq = extioi_claim();
+    if(irq & (1UL << LIOINTC_UART0)){
       uartintr();
 
     // tell the apic the device is
     // now allowed to interrupt again.
 
-      extioi_complete(1UL << UART0_IRQ);
+      extioi_complete(1UL << LIOINTC_UART0);
     } else if(irq){
        printf("unexpected interrupt irq=%d\n", irq);
 

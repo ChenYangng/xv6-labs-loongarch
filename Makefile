@@ -7,7 +7,7 @@ MEM=4G
 CPUS=2
 BIOS=./qemu-loongarch64-runenv/loongarch_bios_0310.bin
 KERNEL=./kernel/kernel
-QEMU=qemu-system-loongarch64
+QEMU=~/qemu-loongarch-runenv/qemu/x86_64/qemu-system-loongarch64
 CMDLINE=root=/dev/ram console=ttyS0,115200 rdinit=/init
 GRAPHIC=-vga none -nographic
 

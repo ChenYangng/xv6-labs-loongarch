@@ -23,6 +23,7 @@ main(void)
   dup(0);  // stdout
   dup(0);  // stderr
 
+  printf("main init!!!\n");
   for(;;){
     printf("init: starting sh\n");
     pid = fork();

@@ -65,6 +65,8 @@ consolewrite(int user_src, uint64 src, int n)
     char c;
     if(either_copyin(&c, user_src, src+i, 1) == -1)
       break;
+    // uartputc_sync(c);
+    if (c == '\n') uartputc('\r');
     uartputc(c);
   }
 

@@ -164,7 +164,7 @@ int             pipewrite(struct pipe*, uint64, int);
 
 // extioi.c
 void            extioi_init(void);
-uint64          extioi_claim(void);
+uint32          extioi_claim(void);
 void            extioi_complete(uint64);
 
 // syscall.c
